@@ -9,3 +9,8 @@ export const getBookedList = async() => {
         console.error(err);
     }
 }
+
+export const getUser = async(regNumber) => {
+    const response = await API.get('/api/appointment/byreg', {params: {regNumber}});
+    return response.data;
+}

@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login } from "../services/userAuthService";
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordErr, setPasswordErr] = useState(null);
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     try {
       const data = await login(username, password);
@@ -13,6 +14,7 @@ const LoginPage = () => {
         setPasswordErr(data.err);
       }else{
         setPasswordErr(null);
+        navigate('/userdashboard', {state:{token: data}})
       }
     } catch (error) {
       console.log("error");

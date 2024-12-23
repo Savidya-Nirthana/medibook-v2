@@ -4,7 +4,7 @@ const API_URL = "api/users";
 export const login = async (username, password) => {
   try {
     const response = await API.post(`${API_URL}/login`, { username, password });
-    console.log(response.data);
+    //console.log(response.data);
     return response.data;
   } catch (err) {
     if(err.response.status === 401){

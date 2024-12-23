@@ -49,3 +49,16 @@ export const loginUser = (req, res) => {
         })
     })
 }
+
+export const getUser = (req, res) => {
+    const {token} = req.body;
+    console.log(token);
+    jwt.verify(token.accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err){
+            console.log(err.message);
+        }else{
+            res.json(user.name);
+        }
+    })
+
+}

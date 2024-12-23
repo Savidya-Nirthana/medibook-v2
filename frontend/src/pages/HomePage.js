@@ -3,6 +3,7 @@ import DoctorAvailable from "../components/DoctorAvalilable";
 import LoginPage from "./LoginPage";
 import backImage from "../images/Duty-Medical-Officer-1.webp";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
 
 const HomePage = () => {
   return (
@@ -10,9 +11,10 @@ const HomePage = () => {
       <div className="m-10 ">
         <DoctorAvailable />
       </div>
+
       <div className=" grid grid-cols-[60%, 40%]  w-full gap-[0px]">
         <div className="row-start-1 px-10 bg-slate-800">
-          <AppointmentSel />
+            <AppointmentSel />
         </div>
 
         <div className="row-start-1 px-10 ">
@@ -72,9 +74,6 @@ const HomePage = () => {
       </div>
       <div className="m-10 ">
         <div className="text-[22px] font-bold">OUR STAFF</div>
-        
-
-
       </div>
       <Footer />
     </>

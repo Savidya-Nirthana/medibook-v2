@@ -1,24 +1,61 @@
-import {useState, useReducer} from 'react';
-import { getBookedList } from '../services/appoinments';
+import {useEffect, useState} from 'react';
+import { getBookedList, getUser } from '../services/appoinments';
 
 
-const {array} = await getBookedList();
-console.log(array);
-const AppointmentSel = () => {  
+const AppointmentSel = () => {
     const [select, setSelect] = useState(false);
+    const [array, setArray] = useState([]);
+    const [clickNext, setClickNext] = useState(false);
+    const [selectYear, setSelectYear] = useState(null);
+    const [selectDept, setSelectDept] = useState(null);
+    const [selectIndex, setSelectIndex] = useState(null);
+    const [isSetReg, setIsSetReg] = useState(false);    
+    const [selectUser, setSelectUser] = useState(null);
+
+    const years = [2021, 2022, 2023, 2024];
+    const dept = ["A", "BAD", "BS" , "BST", "COM", "CSC", "PHY", "L", "MS", "NUR", "PHA"];
+    
+    async function fetchData () {
+        const {array} = await getBookedList();
+        setArray(array); 
+    }     
+
+    async function handleSlotSelection (i) {
+        setSelect(i);
+        await fetchData();
+    }
+
+    function handleNext() {
+        setClickNext(true);
+    }
+     
+    async function registerNumberHandler() {
+        if(selectYear === null || selectDept === null || selectIndex === 0){
+            setIsSetReg(false);
+        }else{
+            setIsSetReg(true);
+            const user = await getUser(`${selectYear}${selectDept}${selectIndex}`);
+            setSelectUser(user.name)
+            
+        }
+    }
+    useEffect(() => {
+        fetchData();
+    },[])
+    
     return(
         <div className="">
         <div className=" mt-5 text-[30px] text-slate-200">PLACE YOUR APPOINTMENT</div>
-        <div className=" flex flex-row flex-wrap my-5">
+        {!clickNext && (<div className="flex flex-row flex-wrap my-5 ">
             {
                 Array.from({length: 80}).map((_,i) => 
-                    <div className="flex m-2">
+                    <div className="flex m-2" key={i}>
                         <input 
                             type="radio" 
                             name="btnchecked" 
                             id={`sel-${i}`} 
                             className="hidden peer"  
-                            onClick={() => setSelect(i+1)} 
+                            onClick={() => handleSlotSelection(i+1)} 
                             disabled = {array.includes(i+1)}                         
                         />
                         <label 
@@ -34,11 +71,45 @@ const AppointmentSel = () => {
                 )
             }
             
-        </div>
-        <div className=' float-right'>
+        </div>)
+        
+        }{
+            clickNext && (<div className='mt-4'>
+                <div className='text-white '>Select your registration number</div>
+                <div>
+                    <form onSubmit={registerNumberHandler}>
+                        <select onChange={(e) => setSelectYear(e.target.value)}>
+                            <option value={null}>Year</option>
+                            {years.map((year)=>
+                                <option value={year}>{year}</option>
+                            )}
+                            
+                        </select>
+                        <select onChange={(e) => setSelectDept(e.target.value)}>
+                            <option>Department</option>
+                            {dept.map((dept) => 
+                                <option value={dept}>{dept}</option>
+                            )}
+                        </select>
+                        <input type='number' placeholder='000' onChange={(e) => setSelectIndex(e.target.value)}/>
+                        <br/>
+                        {!isSetReg ?(<div className='text-red-600 '>select valid year</div>): (<div className='text-green-600 '>success</div>)}
+                        <input className=' bg-slate-100'  type='button'  value={"clickem"} onClick={registerNumberHandler}/>
+                    </form>
+                    <div>
+                    {selectUser}<br/>
+                    {`${selectYear}/${selectDept}/${selectIndex} `}<br/>
+                    {`${select}`}
+                    </div>
+                </div>
+            </div>)
+        }
+        { !clickNext &&
+        <div className='float-right '>
             {/* <button className={`px-5 rounded-sm py-2 mb-5 mx-4 ${(select)? 'bg-red-500 text-red-50' : 'text-slate-100 bg-slate-600'}`} disabled={!select} onClick={()=> {setSelect(false)}}>Clear</button> */}
-            <button className={` px-5 rounded-sm py-2 mb-5  ${(select)? 'text-slate-50 bg-blue-500 ' : 'text-slate-50 bg-slate-600'}`} disabled={!select}>Next</button>
+            <button className={` px-5 rounded-sm py-2 mb-5  ${(select)? 'text-slate-50 bg-blue-500 ' : 'text-slate-50 bg-slate-600'}`} disabled={!select} onClick={handleNext}>Next</button>
         </div>
+}
         </div>
         
     )

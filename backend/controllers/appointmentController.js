@@ -19,3 +19,19 @@ export const selected = (req,res) => {
         }
     })
 }
+
+export const byReg = async(req, res) => {
+    const {regNumber} = await req.query;
+    const query = "SELECT * FROM user_details WHERE reg_number = ?";
+    conn.query(query, [regNumber], (err, user) => {
+        if(err){
+            res.status(501).json({err: err.message})
+        }else{
+            if(user[0]) {
+                res.status(200).json({name: user[0].name_with_initials})  
+            }else{
+                res.status(404).json({err: "username not found"})
+            }
+        }
+    })
+}
