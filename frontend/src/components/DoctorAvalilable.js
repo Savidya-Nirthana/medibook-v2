@@ -4,7 +4,7 @@ const DoctorAvailable = () => {
     return (
         <>
         <div className='flex items-center justify-between '>
-            <div className=' pb-6 text-[22px] text-slate-800 font-bold'>AVAILABLE DOCTORS</div>
+            <div className=' pb-6 text-[22px] text-slate-800 font-bold'>TODAY ACTIVE DOCTORS</div>
             <div className='text-[16px] text-slate-800 font-bold pb-6'>{date.toDateString()}</div>
         </div>
         
@@ -24,6 +24,6 @@ const DoctorAvailable = () => {
         </div>
         </>
     )
-}
+}   
 
 export default DoctorAvailable;

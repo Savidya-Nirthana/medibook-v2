@@ -2,7 +2,7 @@ import logo from "../images/logo.png";
 import logo2 from "../images/logo2.png";
 import { Link } from "react-router-dom";
 const NavBar = (token) => {
-  const navData = ["Home", "About", "SignUp"];
+  const navData = ["Home", "Vaccination", "Counseling" ,"SignUp"];
   const userNavData = ["Home", "Settings" ,"Logout"];
   console.log(token.setToken);
   return (
