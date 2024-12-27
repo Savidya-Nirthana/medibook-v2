@@ -3,24 +3,46 @@ import DoctorAvailable from "../components/DoctorAvalilable";
 import LoginPage from "./LoginPage";
 import backImage from "../images/Duty-Medical-Officer-1.webp";
 import Footer from "../components/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import API from "../services/axoisInstance";
+const API_URL = "api/users";
 
-const HomePage = () => {
+
+const HomePage = ({setToken}) => {
+  const [user, setUser] = useState(null);
+  const location = useLocation();
+  const token = location.state?.token;
+  setToken(token);
+  API.post(`${API_URL}/getUser`, { token }).then((response) => {
+    setUser(response.data);
+  });
   return (
     <>
       <div className="m-10 ">
         <DoctorAvailable />
       </div>
+      {!user && (
+        <>
+          <div className=" grid grid-cols-[60%, 40%]  w-full gap-[0px]">
+            <div className="w-full row-start-1 px-10 bg-slate-800">
+              <AppointmentSel />
+            </div>
 
-      <div className=" grid grid-cols-[60%, 40%]  w-full gap-[0px]">
-        <div className="w-full row-start-1 px-10 bg-slate-800">
+            <div className="row-start-1 px-10 ">
+              <LoginPage />
+            </div>
+          </div>
+        </>
+      )}
+      {user && (
+        <div className="flex justify-center">
+        <div className="w-[90%] flex justify-center row-start-1 px-10 bg-slate-800">
           <AppointmentSel />
         </div>
-
-        <div className="row-start-1 px-10 ">
-          <LoginPage />
         </div>
-      </div>
+      )}
+
       <div className="flex ">
         <div className=" m-10 w-[50%] relative">
           <div className=" text-[22px] font-bold">ABOUT</div>
@@ -75,20 +97,23 @@ const HomePage = () => {
       <div className="m-10 ">
         <div className="text-[22px] font-bold">LOCATION</div>
         <div className="flex items-center justify-center my-8">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15731.790044284251!2d80.00707375061332!3d9.685521212447028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe541251d4aa5b%3A0xc77be69c7c905cc0!2sUniversity%20Health%20Center!5e0!3m2!1sen!2slk!4v1734955887691!5m2!1sen!2slk"
-                width="100%"
-                height="450"
-                className="border-0 rounded-md shadow-lg"
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Google Maps Embed"
-            ></iframe>
-            </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15731.790044284251!2d80.00707375061332!3d9.685521212447028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe541251d4aa5b%3A0xc77be69c7c905cc0!2sUniversity%20Health%20Center!5e0!3m2!1sen!2slk!4v1734955887691!5m2!1sen!2slk"
+            width="100%"
+            height="450"
+            className="border-0 rounded-md shadow-lg"
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Google Maps Embed"
+          ></iframe>
+        </div>
       </div>
       <div className="flex flex-row w-full gap-10 justify-evenly">
-        <div>University Health Center +94 77231234(Opening Hours - Week Days 8.00 AM to 4.00 PM)</div>
+        <div>
+          University Health Center +94 77231234(Opening Hours - Week Days 8.00
+          AM to 4.00 PM)
+        </div>
         <div>info@univ.jfn.ac.lk</div>
       </div>
       <Footer />

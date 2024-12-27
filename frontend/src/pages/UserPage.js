@@ -12,7 +12,7 @@ const UserPage = ({setToken}) => {
     setUser(response.data);
   });
   console.log(user);
-  return <div>{user}</div>;
+  return <div></div>;
 };
 
 export default UserPage;

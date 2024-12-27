@@ -57,7 +57,8 @@ export const getUser = (req, res) => {
         if(err){
             console.log(err.message);
         }else{
-            res.json(user.name);
+            res.json(user.regNum);
+            console.log(user)
         }
     })
 

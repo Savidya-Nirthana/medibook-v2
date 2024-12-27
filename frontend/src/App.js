@@ -16,7 +16,7 @@ function App() {
         {console.log(token)}
         <Routes>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/home" element={<HomePage/>} />
+          <Route path="/home" element={<HomePage setToken={setToken}/>}/>
           <Route path="/userdashboard" element={<UserPage setToken={setToken}/>}/>
         </Routes>
       </BrowserRouter>

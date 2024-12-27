@@ -14,7 +14,7 @@ const LoginPage = () => {
         setPasswordErr(data.err);
       }else{
         setPasswordErr(null);
-        navigate('/userdashboard', {state:{token: data}})
+        navigate('/home', {state:{token: data}})
       }
     } catch (error) {
       console.log("error");
