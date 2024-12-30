@@ -3,17 +3,15 @@ import DoctorAvailable from "../components/DoctorAvalilable";
 import LoginPage from "./LoginPage";
 import backImage from "../images/Duty-Medical-Officer-1.webp";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useContext, useState } from "react";
 import API from "../services/axoisInstance";
+import { Context } from "../App";
 const API_URL = "api/users";
 
 
-const HomePage = ({setToken}) => {
+const HomePage = () => {
+  const [token, setToken] = useContext(Context);
   const [user, setUser] = useState(null);
-  const location = useLocation();
-  const token = location.state?.token;
-  setToken(token);
   API.post(`${API_URL}/getUser`, { token }).then((response) => {
     setUser(response.data);
   });
@@ -22,7 +20,7 @@ const HomePage = ({setToken}) => {
       <div className="m-10 ">
         <DoctorAvailable />
       </div>
-      {!user && (
+      {!token && (
         <>
           <div className=" grid grid-cols-[60%, 40%]  w-full gap-[0px]">
             <div className="w-full row-start-1 px-10 bg-slate-800">
@@ -35,7 +33,7 @@ const HomePage = ({setToken}) => {
           </div>
         </>
       )}
-      {user && (
+      {token && (
         <div className="flex justify-center">
         <div className="w-[90%] flex justify-center row-start-1 px-10 bg-slate-800">
           <AppointmentSel />

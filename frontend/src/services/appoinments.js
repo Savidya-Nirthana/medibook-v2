@@ -25,3 +25,5 @@ export const placeAppointment = async(number, regNumber, note) => {
     }
 }
 
+
+

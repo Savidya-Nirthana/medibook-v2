@@ -15,5 +15,5 @@ conn.connect((error)=> {
     if(error) throw error;
     console.log("database connected");
 })
-
+    
 export default conn;

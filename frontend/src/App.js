@@ -4,27 +4,27 @@ import HomePage from "./pages/HomePage.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp.js";
 import UserPage from "./pages/UserPage.js";
-import { useState } from "react";
+import React, { useState} from "react";
 
-
-function App() {
+export const Context = React.createContext();
+export const App = () => {
   const [token, setToken] = useState(null);
   return (
     <div className="App">
+    <Context.Provider value={[token,setToken]}>
       <BrowserRouter>
-        <NavBar setToken={token}/>
-        {console.log(token)}
+        <NavBar/>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/home" element={<HomePage setToken={setToken}/>}/>
-          <Route path="/userdashboard" element={<UserPage setToken={setToken}/>}/>
+          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/userdashboard" element={<UserPage/>}/>
         </Routes>
       </BrowserRouter>
-      
+      </Context.Provider>
       
     </div>
   );
   
 }
 
-export default App;
+

@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/userAuthService";
+import { Context } from "../App";
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordErr, setPasswordErr] = useState(null);
+  const [token, setToken] = useContext(Context);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     try {
@@ -14,7 +17,8 @@ const LoginPage = () => {
         setPasswordErr(data.err);
       }else{
         setPasswordErr(null);
-        navigate('/home', {state:{token: data}})
+        setToken(data);
+        navigate('/home')
       }
     } catch (error) {
       console.log("error");
@@ -72,7 +76,7 @@ const LoginPage = () => {
       <div className=" bg-slate-700 w-[400px] m-auto px-6">
         <p className="py-2 text-slate-100">
           If you don't have an account please{" "}
-          <a href="#" className="font-bold text-blue-200 underline ">
+          <a href="/signup" className="font-bold text-blue-200 underline ">
             sign up
           </a>
         </p>

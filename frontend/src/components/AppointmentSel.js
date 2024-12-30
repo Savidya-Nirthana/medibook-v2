@@ -34,7 +34,7 @@ const AppointmentSel = () => {
   async function fetchData() {
     const { array } = await getBookedList();
     setArray(array);
-    console.log(array);
+    // console.log(array);
   }
 
   async function handleSlotSelection(i) {
