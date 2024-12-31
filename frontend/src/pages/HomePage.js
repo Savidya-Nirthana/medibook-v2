@@ -3,11 +3,11 @@ import DoctorAvailable from "../components/DoctorAvalilable";
 import LoginPage from "./LoginPage";
 import backImage from "../images/Duty-Medical-Officer-1.webp";
 import Footer from "../components/Footer";
+import AboutBanner from "../images/Health-Science.jpg"
 import { useContext, useState } from "react";
 import API from "../services/axoisInstance";
 import { Context } from "../App";
 const API_URL = "api/users";
-
 
 const HomePage = () => {
   const [token, setToken] = useContext(Context);
@@ -17,17 +17,28 @@ const HomePage = () => {
   });
   return (
     <>
-      <div className="m-10 ">
-        <DoctorAvailable />
+      <div className="flex w-[900px] m-auto text-[20px] font-bold gap-10 my-10">
+        <div className="w-[600px]">
+          <DoctorAvailable />
+        </div>
+        <div className="w-[300px]">
+          <div className="text-[22px] mb-4 mt-1">Contents</div>
+          <ul className="ml-5 list-disc border-b-[3px] border-blue-900 pb-5 text-[18px] font-normal">
+            <li className="text-blue-900">Place appointment</li>
+            <li className="text-blue-900 ">About</li>
+            <li className="text-blue-900">Location</li>
+          </ul>
+        </div>
       </div>
+
       {!token && (
         <>
-          <div className=" grid grid-cols-[60%, 40%]  w-full gap-[0px]">
-            <div className="w-full row-start-1 px-10 bg-slate-800">
+          <div className=" flex  w-full gap-[0px] bg-slate-900">
+            <div className="px-10 ">
               <AppointmentSel />
             </div>
 
-            <div className="row-start-1 px-10 ">
+            <div className="row-start-1 px-10 m-auto">
               <LoginPage />
             </div>
           </div>
@@ -35,24 +46,38 @@ const HomePage = () => {
       )}
       {token && (
         <div className="flex justify-center">
-        <div className="w-[90%] flex justify-center row-start-1 px-10 bg-slate-800">
-          <AppointmentSel />
-        </div>
+          <div className="w-[90%] flex justify-center row-start-1 px-10 bg-slate-900">
+            <AppointmentSel />
+          </div>
         </div>
       )}
 
-      <div className="flex ">
-        <div className=" m-10 w-[50%] relative">
-          <div className=" text-[22px] font-bold">ABOUT</div>
-          <div className=" absolute z-[-10] top-[50px]">
-            <img src={backImage} alt="Medical Staff" />
-          </div>
-          <div className="">
-            <h1 className=" bg-slate-800 text-slate-100 text-center w-[350px] py-5 ml-10 mt-[100px] text-[20px]">
+      <div className="flex w-[900px] m-auto gap-[20px] mt-10">
+        <div className="w-[650px]">
+          <div className=" text-[30px] font-bold py-5">ABOUT</div>
+          <div className=" text-[18px]">
+            <img src={AboutBanner}/>
+            <p>
+              The Health Centres ware started in 1975 at Vaddukoddai and
+              Thirunelvely. Vaddukoddai Helath Centre was run by the DMO,
+              Vaddukoddai upto 1979, Thirunelvely Health Centre was run by Dr.
+              V. Sivagnanaratnam – Visiting Medical Officer.
+              <br />
+              <br />
+              The University Health Service was organized to help the students
+              and Staff of the University to lead an active life free from
+              disease. Initially, all registered University students were
+              entitled to free consultations and laboratory services and the
+              service was set up solely for the benefit of the student body. It
+              was believed that timely treatment and care of even mild ailments
+              could prevent the occurrence of more serious diseases, minimize
+              the rate of absenteeism from classes and control the spread of
+              infection to others.
+            </p>
+            <div className="text-slate-900  font-bold text-[20px] py-5">
               We Take Care Of Your Healthy Life
-            </h1>
-            <br />
-            <p className=" text-justify z-10 bg-slate-50 mx-10 p-5 text-[18px] mt-[-25px]">
+            </div>
+            <p className=" text-justify text-[18px]">
               The University Health Service was organized to help the students
               and staff of the university to lead an active life free from
               disease. Initially, all registered university students were
@@ -65,28 +90,28 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <div className=" m-10 w-[40%]">
-          <div className=" text-[22px] font-bold">OUR SERVICES</div>
-          <ul className=" bg-slate-50 mt-5 text-slate-800 list-none p-10 text-[18px]">
-            <li className="p-3 ">
+        <div className="w-[200px]">
+          <div className=" text-[22px] font-bold py-5 ">OUR SERVICES</div>
+          <ul className=" text-slate-800 list-disc  text-[18px] ml-10">
+            <li className="pb-2 ">
               <a href="#">Medical Treatments</a>
             </li>
-            <li className="p-3 ">
+            <li className="pb-2 ">
               <a href="#">Vaccinations</a>
             </li>
-            <li className="p-3 ">
+            <li className="pb-2 ">
               <a href="#">Counseling</a>
             </li>
-            <li className="p-3 ">
+            <li className="pb-2 ">
               <a href="#">Laboratory Investigation</a>
             </li>
-            <li className="p-3 ">
+            <li className="pb-2 ">
               <a href="#">Advice & Counseling</a>
             </li>
-            <li className="p-3 ">
+            <li className="pb-2 ">
               <a href="#">Medical Certificates</a>
             </li>
-            <li className="p-3 ">
+            <li className="pb-2 ">
               <a href="#">Referral</a>
             </li>
           </ul>
@@ -107,14 +132,6 @@ const HomePage = () => {
           ></iframe>
         </div>
       </div>
-      <div className="flex flex-row w-full gap-10 justify-evenly">
-        <div>
-          University Health Center +94 77231234(Opening Hours - Week Days 8.00
-          AM to 4.00 PM)
-        </div>
-        <div>info@univ.jfn.ac.lk</div>
-      </div>
-      <Footer />
     </>
   );
 };

@@ -72,8 +72,8 @@ const AppointmentSel = () => {
 
   return (
     <div className="">
-      <div className=" mt-5 text-[30px] text-slate-200">
-        PLACE YOUR APPOINTMENT
+      <div className=" mt-5 text-[30px] text-slate-50 font-bold">
+        Place your appoinment
       </div>
       {!clickNext && (
         <div className="flex flex-row flex-wrap my-5 ">
@@ -179,7 +179,7 @@ const AppointmentSel = () => {
         </div>
       )}
       {!clickNext && (
-        <div className="float-right ">
+        <div className="">
           {/* <button className={`px-5 rounded-sm py-2 mb-5 mx-4 ${(select)? 'bg-red-500 text-red-50' : 'text-slate-100 bg-slate-600'}`} disabled={!select} onClick={()=> {setSelect(false)}}>Clear</button> */}
           <button
             className={` px-5 rounded-sm py-2 mb-5  ${

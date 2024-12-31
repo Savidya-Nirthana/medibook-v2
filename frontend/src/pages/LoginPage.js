@@ -27,9 +27,10 @@ const LoginPage = () => {
 
   return (
     <div className="">
+      <p className=" text-center text-[30px] text-slate-50 font-bold">Hello Student! please login into your account.</p>
       <div className="w-[400px] m-auto py-5 mt-10 px-10 bg-slate-100">
+      <p className=" text-[30px] text-slate-600 font-bold mb-8">Login</p>
         <div className="m-auto ">
-          <p className=" text-center text-[40px] text-slate-600">Login</p>
           <label>Username:</label>
           <br />
           <input
